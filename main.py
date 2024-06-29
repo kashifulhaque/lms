@@ -14,15 +14,17 @@ def main_menu():
   print("2. List Books")
   print("3. Update Book")
   print("4. Delete Book")
-  print("5. Search Books")
-  print("6. Add User")
-  print("7. List Users")
-  print("8. Update User")
-  print("9. Delete User")
-  print("10. Search Users")
-  print("11. Checkout Book")
-  print("12. Checkin Book")
-  print("13. Exit")
+  print("5. Search Book by ISBN")
+  print("6. Search Book by Title")
+  print("7. Search Book by Author name")
+  print("8. Add User")
+  print("9. List Users")
+  print("10. Update User")
+  print("11. Delete User")
+  print("12. Search Users")
+  print("13. Checkout Book")
+  print("14. Checkin Book")
+  print("15. Exit")
 
   choice = input("Enter choice: ")
 
@@ -62,16 +64,32 @@ def main():
         isbn = input("Enter ISBN of the book to delete: ")
         book_service.delete_book(isbn)
       
-      # Search for a book
+      # Search for a book (by ISBN)
       elif choice == '5':
         isbn = input("Enter ISBN to search: ")
-        results = book_service.search_books(isbn)
+        results = book_service.search_book_by_isbn(isbn)
 
         for book in results:
           print(book)
-      
-      # Add a new user
+
+      # Search for a book (by Title)
       elif choice == '6':
+        title = input("Enter title to search: ")
+        results = book_service.search_book_by_title(title)
+
+        for book in results:
+          print(book)
+
+      # Search for a book (by Author)
+      elif choice == '7':
+        author = input("Enter author to search: ")
+        results = book_service.search_book_by_author(author)
+
+        for book in results:
+          print(book)
+
+      # Add a new user
+      elif choice == '8':
         name = input("Enter user name: ")
         user_id = input("Enter user ID: ")
         is_user_added = user_service.add_user(name)
@@ -82,22 +100,22 @@ def main():
           log_error("User already exists")
 
       # List existing users
-      elif choice == '7':
+      elif choice == '9':
         user_service.list_users()
 
       # Update an existing user
-      elif choice == '8':
+      elif choice == '10':
         user_id = input("Enter user ID of the user to update: ")
         name = input("Enter new name (leave blank to keep current): ")
         user_service.update_user(user_id, name)
 
       # Delete an existing user
-      elif choice == '9':
+      elif choice == '11':
         user_id = input("Enter user ID of the user to delete: ")
         user_service.delete_user(user_id)
 
       # Search for an existing user
-      elif choice == '10':
+      elif choice == '12':
         name = input("Enter name to search: ")
         user_id = input("Enter user ID to search: ")
         results = user_service.search_users(name, user_id)
@@ -105,19 +123,19 @@ def main():
         for user in results:
           print(user)
 
-      elif choice == '11':
+      elif choice == '13':
         user_id = input("Enter user ID: ")
         isbn = input("Enter ISBN of the book to checkout: ")
         checkout_service.checkout_book(user_id, isbn)
         log_info("Book checked out.")
 
-      elif choice == '12':
+      elif choice == '14':
         user_id = input("Enter user ID: ")
         isbn = input("Enter ISBN of the book to checkin: ")
         checkout_service.checkin_book(user_id, isbn)
         log_info("Book checked in.")
 
-      elif choice == '13':
+      elif choice == '15':
         print("Exiting.")
         break
 

@@ -1,6 +1,8 @@
 from models.book import Book
 from storage import Storage
 
+from thefuzz import fuzz
+
 class BookService:
   _instance = None
 
@@ -47,11 +49,33 @@ class BookService:
     self.books = [book for book in self.books if book.isbn != isbn]
     self.storage.save(self.books)
 
-  def search_books(self, isbn = None):
+  def search_book_by_isbn(self, isbn):
     results = []
 
     for book in self.books:
       if isbn and isbn == book.isbn:
         results.append(book)
     
+    return results
+
+  def search_book_by_title(self, title):
+    results = []
+    
+    for book in self.books:
+      ratio = fuzz.token_set_ratio(title, book.title)
+
+      if title and ratio >= 50:
+        results.append(book)
+
+    return results
+
+  def search_book_by_author(self, author):
+    results = []
+    
+    for book in self.books:
+      ratio = fuzz.token_set_ratio(author, book.author)
+
+      if author and ratio >= 50:
+        results.append(book)
+
     return results
