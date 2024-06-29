@@ -21,10 +21,11 @@ def main_menu():
   print("9. List Users")
   print("10. Update User")
   print("11. Delete User")
-  print("12. Search Users")
-  print("13. Checkout Book")
-  print("14. Checkin Book")
-  print("15. Exit")
+  print("12. Search User by ID")
+  print("13. Search User by name")
+  print("14. Checkout Book")
+  print("15. Checkin Book")
+  print("Press any key to exit (except the options)")
 
   choice = input("Enter choice: ")
 
@@ -90,8 +91,7 @@ def main():
 
       # Add a new user
       elif choice == '8':
-        name = input("Enter user name: ")
-        user_id = input("Enter user ID: ")
+        name = input("Enter username: ")
         is_user_added = user_service.add_user(name)
 
         if is_user_added:
@@ -105,42 +105,46 @@ def main():
 
       # Update an existing user
       elif choice == '10':
-        user_id = input("Enter user ID of the user to update: ")
+        user_id = input("Enter user ID to update: ")
         name = input("Enter new name (leave blank to keep current): ")
         user_service.update_user(user_id, name)
 
       # Delete an existing user
       elif choice == '11':
-        user_id = input("Enter user ID of the user to delete: ")
+        user_id = input("Enter user ID to delete: ")
         user_service.delete_user(user_id)
 
-      # Search for an existing user
+      # Search for an existing user (by ID)
       elif choice == '12':
-        name = input("Enter name to search: ")
         user_id = input("Enter user ID to search: ")
-        results = user_service.search_users(name, user_id)
+        results = user_service.search_user_by_id(user_id)
 
         for user in results:
           print(user)
 
+      # Search for an existing user (by name)
       elif choice == '13':
+        name = input("Enter name to search: ")
+        results = user_service.search_user_by_name(name)
+
+        for user in results:
+          print(user)
+
+      elif choice == '14':
         user_id = input("Enter user ID: ")
         isbn = input("Enter ISBN of the book to checkout: ")
         checkout_service.checkout_book(user_id, isbn)
         log_info("Book checked out.")
 
-      elif choice == '14':
+      elif choice == '15':
         user_id = input("Enter user ID: ")
         isbn = input("Enter ISBN of the book to checkin: ")
         checkout_service.checkin_book(user_id, isbn)
         log_info("Book checked in.")
 
-      elif choice == '15':
+      else:
         print("Exiting.")
         break
-
-      else:
-        print("Invalid choice, please try again.")
     except Exception as e:
       log_error(f"An error occurred: {e}")
 

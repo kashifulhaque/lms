@@ -25,6 +25,7 @@ class BookService:
 
     self.books.append(book)
     self.storage.save(self.books)
+    self.__init__()
     return True
   
   def list_books(self):
@@ -41,6 +42,7 @@ class BookService:
           book.author = author
         
         self.storage.save(self.books)
+        self.__init()
         return
     
     print(f"Book with ISBN: {isbn} not found")
@@ -48,6 +50,7 @@ class BookService:
   def delete_book(self, isbn):
     self.books = [book for book in self.books if book.isbn != isbn]
     self.storage.save(self.books)
+    self.__init__()
 
   def search_book_by_isbn(self, isbn):
     results = []

@@ -1,6 +1,8 @@
 from models.user import User
 from storage import Storage
 
+from thefuzz import fuzz
+
 class UserService:
   _instance = None
 
@@ -24,11 +26,13 @@ class UserService:
     
     self.users.append(user)
     self.storage.save(self.users)
+    self.__init__()
     return True
 
   def list_users(self):
+    print(f"| User ID\t| Username\t|")
     for user in self.users:
-      print(user)
+      print(f"| {user.user_id}\t\t| {user.name}\t|")
 
   def update_user(self, user_id, name = None):
     for user in self.users:
@@ -37,25 +41,32 @@ class UserService:
           user.name = name
 
         self.storage.save(self.users)
+        self.__init__()
         return
       
     print("User not found.")
 
   def delete_user(self, user_id):
-    for u in self.users:
-      print(u)
-  
     self.users = [user for user in self.users if user.user_id != user_id]
     self.storage.save(self.users)
+    self.__init__()
 
-  def search_users(self, name = None, user_id = None):
+  def search_user_by_id(self, user_id):
     results = []
 
     for user in self.users:
-      if name and name in user.name:
+      if user_id and user_id == user.user_id:
         results.append(user)
 
-      if user_id and user_id == user.user_id:
+    return results
+
+  def search_user_by_name(self, name):
+    results = []
+
+    for user in self.users:
+      ratio = fuzz.token_set_ratio(name, user.name)
+      
+      if name and ratio >= 50:
         results.append(user)
 
     return results
