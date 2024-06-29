@@ -34,7 +34,7 @@ class Storage:
       writer = csv.writer(file)
 
       for book in books:
-        writer.writerow([book.title, book.author, book.isbn, book.is_checked_out])
+        writer.writerow([book.title, book.author, book.isbn])
 
   def _save_users(self, users):
     with open(self.filename, "w", newline = "") as file:
