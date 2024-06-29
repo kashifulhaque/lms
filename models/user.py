@@ -1,3 +1,4 @@
+# User class represents a user entity with name and user ID
 class User:
   def __init__(self, name, user_id):
     self.name = name

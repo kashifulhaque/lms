@@ -1,13 +1,15 @@
-# This is a deliberately poorly implemented main script for a Library Management System.
+# Importing services and logging functions
 from services.book_service import BookService
 from services.user_service import UserService
 from services.checkout_service import CheckoutService
 from logger import log_info, log_error
 
+# Initializing services
 book_service = BookService()
 user_service = UserService()
 checkout_service = CheckoutService()
 
+# Function to display the main menu and get user choice
 def main_menu():
   print("\nLibrary Management System")
   print("1. Add Book")
@@ -32,6 +34,7 @@ def main_menu():
 
   return choice
 
+# Main function to handle user choices and interact with services
 def main():
   while True:
     try:

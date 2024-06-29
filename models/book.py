@@ -1,3 +1,4 @@
+# Book class represents a book entity with title, author, and ISBN
 class Book:
   def __init__(self, title, author, isbn):
     self.title = title

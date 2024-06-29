@@ -1,3 +1,4 @@
+# Checkout class represents a checkout entity with user ID and ISBN
 class Checkout:
   def __init__(self, user_id, isbn):
     self.user_id = user_id

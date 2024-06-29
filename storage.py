@@ -4,6 +4,7 @@ from models.book import Book
 from models.user import User
 from models.checkout import Checkout
 
+# Storage class handles saving and loading data from CSV files
 class Storage:
   def __init__(self, filename):
     self.filename = filename
@@ -12,6 +13,7 @@ class Storage:
     if not data:
       return
 
+    # Check the type of data and call the respective save method
     if isinstance(data[0], Book):
       self._save_books(data)
     elif isinstance(data[0], User):
@@ -23,12 +25,14 @@ class Storage:
     if not os.path.exists(self.filename):
       return []
 
+    # Load data from the CSV file
     with open(self.filename, "r", newline = "") as file:
       reader = csv.reader(file)
       data = [self._dict_to_object(row) for row in reader]
 
     return data
 
+  # Private methods to save data for each model
   def _save_books(self, books):
     with open(self.filename, "w", newline = "") as file:
       writer = csv.writer(file)
@@ -50,6 +54,7 @@ class Storage:
       for checkout in checkouts:
         writer.writerow([checkout.user_id, checkout.isbn])
 
+  # Convert CSV row data back to respective model objects
   def _dict_to_object(self, row):
     if self.filename == "books.csv":
       return Book(row[0], row[1], row[2])

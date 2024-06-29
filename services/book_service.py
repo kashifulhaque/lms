@@ -3,6 +3,7 @@ from storage import Storage
 
 from thefuzz import fuzz
 
+# BookService class handles operations related to books
 class BookService:
   _instance = None
 
@@ -16,6 +17,7 @@ class BookService:
     self.storage = Storage('books.csv')
     self.books = self.storage.load()
   
+  # Add a book to the library
   def add_book(self, title, author, isbn):
     book = Book(title, author, isbn)
 
@@ -28,10 +30,12 @@ class BookService:
     self.__init__()
     return True
   
+  # List all books in the library
   def list_books(self):
     for book in self.books:
       print(book)
-  
+
+  # Update book details in the library
   def update_book(self, isbn, title = None, author = None):
     for book in self.books:
       if book.isbn == isbn:
@@ -47,11 +51,13 @@ class BookService:
     
     print(f"Book with ISBN: {isbn} not found")
 
+  # Delete a book from the library
   def delete_book(self, isbn):
     self.books = [book for book in self.books if book.isbn != isbn]
     self.storage.save(self.books)
     self.__init__()
 
+  # Search for a book by ISBN
   def search_book_by_isbn(self, isbn):
     results = []
 
@@ -61,6 +67,7 @@ class BookService:
     
     return results
 
+  # Search for books by title
   def search_book_by_title(self, title):
     results = []
     
@@ -72,6 +79,7 @@ class BookService:
 
     return results
 
+  # Search for books by author
   def search_book_by_author(self, author):
     results = []
     
