@@ -13,3 +13,6 @@ class Book:
       return False
     
     return self.isbn == other.isbn
+
+  def __hash__(self):
+    return self.isbn

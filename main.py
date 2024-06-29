@@ -33,6 +33,7 @@ def main():
     try:
       choice = main_menu()
 
+      # Add a new book
       if choice == '1':
         title = input("Enter title: ")
         author = input("Enter author: ")
@@ -44,9 +45,11 @@ def main():
         else:
           log_error("Book with ISBN: {isbn} already exists")
 
+      # List all books
       elif choice == '2':
         book_service.list_books()
 
+      # Update an existing book
       elif choice == '3':
         isbn = input("Enter ISBN of the book to update: ")
         title = input("Enter new title (leave blank to keep current): ")
@@ -54,10 +57,12 @@ def main():
 
         book_service.update_book(isbn, title, author)
       
+      # Delete an existing book
       elif choice == '4':
         isbn = input("Enter ISBN of the book to delete: ")
         book_service.delete_book(isbn)
       
+      # Search for a book
       elif choice == '5':
         isbn = input("Enter ISBN to search: ")
         results = book_service.search_books(isbn)
@@ -65,24 +70,33 @@ def main():
         for book in results:
           print(book)
       
+      # Add a new user
       elif choice == '6':
         name = input("Enter user name: ")
         user_id = input("Enter user ID: ")
-        user_service.add_user(name, user_id)
-        log_info("User added.")
+        is_user_added = user_service.add_user(name)
 
+        if is_user_added:
+          log_info("User added.")
+        else:
+          log_error("User already exists")
+
+      # List existing users
       elif choice == '7':
         user_service.list_users()
 
+      # Update an existing user
       elif choice == '8':
         user_id = input("Enter user ID of the user to update: ")
         name = input("Enter new name (leave blank to keep current): ")
         user_service.update_user(user_id, name)
 
+      # Delete an existing user
       elif choice == '9':
         user_id = input("Enter user ID of the user to delete: ")
         user_service.delete_user(user_id)
 
+      # Search for an existing user
       elif choice == '10':
         name = input("Enter name to search: ")
         user_id = input("Enter user ID to search: ")

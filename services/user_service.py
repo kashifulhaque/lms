@@ -14,16 +14,23 @@ class UserService:
     self.storage = Storage('users.csv')
     self.users = self.storage.load()
 
-  def add_user(self, name, user_id):
+  def add_user(self, name):
+    user_id = len(self.users) + 1
     user = User(name, user_id)
+
+    for ele in self.users:
+      if ele == user:
+        return False
+    
     self.users.append(user)
     self.storage.save(self.users)
+    return True
 
   def list_users(self):
     for user in self.users:
       print(user)
 
-  def update_user(self, user_id, name=None):
+  def update_user(self, user_id, name = None):
     for user in self.users:
       if user.user_id == user_id:
         if name:
@@ -35,10 +42,13 @@ class UserService:
     print("User not found.")
 
   def delete_user(self, user_id):
+    for u in self.users:
+      print(u)
+  
     self.users = [user for user in self.users if user.user_id != user_id]
     self.storage.save(self.users)
 
-  def search_users(self, name=None, user_id=None):
+  def search_users(self, name = None, user_id = None):
     results = []
 
     for user in self.users:
