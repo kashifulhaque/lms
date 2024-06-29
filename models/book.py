@@ -7,3 +7,9 @@ class Book:
   
   def __repr__(self):
     return f"Book(title = {self.title}, author = {self.author}, isbn = {self.isbn}, is_checked_out = {self.is_checked_out})"
+  
+  def __eq__(self, other):
+    if not isinstance(other, Book):
+      return False
+    
+    return self.isbn == other.isbn

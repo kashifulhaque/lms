@@ -16,14 +16,20 @@ class BookService:
   
   def add_book(self, title, author, isbn):
     book = Book(title, author, isbn)
+
+    for ele in self.books:
+      if ele == book:
+        return False
+
     self.books.append(book)
     self.storage.save(self.books)
+    return True
   
   def list_books(self):
     for book in self.books:
       print(book)
   
-  def update_book(self, isbn, title=None, author=None):
+  def update_book(self, isbn, title = None, author = None):
     for book in self.books:
       if book.isbn == isbn:
         if title:
@@ -41,16 +47,10 @@ class BookService:
     self.books = [book for book in self.books if book.isbn != isbn]
     self.storage.save(self.books)
   
-  def search_books(self, title=None, author=None, isbn=None):
+  def search_books(self, isbn = None):
     results = []
 
     for book in self.books:
-      if title and title in book.title:
-        results.append(book)
-
-      if author and author in book.author:
-        results.append(book)
-
       if isbn and isbn == book.isbn:
         results.append(book)
     

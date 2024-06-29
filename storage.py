@@ -52,7 +52,7 @@ class Storage:
 
   def _dict_to_object(self, row):
     if self.filename == "books.csv":
-      return Book(row[0], row[1], row[2], row[3] == "True")
+      return Book(row[0], row[1], row[2])
     elif self.filename == "users.csv":
       return User(row[0], row[1])
     elif self.filename == "checkouts.csv":

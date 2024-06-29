@@ -17,6 +17,7 @@ class CheckoutService:
   def checkout_book(self, user_id, isbn):
     checkout = Checkout(user_id, isbn)
     self.checkouts.append(checkout)
+    print(self.checkouts)
     self.storage.save(self.checkouts)
 
   def checkin_book(self, user_id, isbn):
