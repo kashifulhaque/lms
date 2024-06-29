@@ -3,10 +3,9 @@ class Book:
     self.title = title
     self.author = author
     self.isbn = isbn
-    self.is_checked_out = False
   
   def __repr__(self):
-    return f"Book(title = {self.title}, author = {self.author}, isbn = {self.isbn}, is_checked_out = {self.is_checked_out})"
+    return f"----------------\nISBN: {self.isbn}\n{self.title}, authored by {self.author}"
   
   def __eq__(self, other):
     if not isinstance(other, Book):

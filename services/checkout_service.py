@@ -16,10 +16,26 @@ class CheckoutService:
 
   def checkout_book(self, user_id, isbn):
     checkout = Checkout(user_id, isbn)
+
+    for ele in self.checkouts:
+      if ele == checkout:
+        return False
+
     self.checkouts.append(checkout)
-    print(self.checkouts)
     self.storage.save(self.checkouts)
+    self.__init__()
+    return True
 
   def checkin_book(self, user_id, isbn):
-    self.checkouts = [checkout for checkout in self.checkouts if not (checkout.user_id == user_id and checkout.isbn == isbn)]
+    checkin = Checkout(user_id, isbn)
+    results = []
+
+    for checkout in self.checkouts:
+      if checkout == checkin:
+        pass
+      else:
+        results.append(checkout)
+
+    self.checkouts = results
     self.storage.save(self.checkouts)
+    self.__init__()

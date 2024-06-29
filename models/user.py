@@ -4,7 +4,7 @@ class User:
     self.user_id = user_id
   
   def __repr__(self):
-    return f"User(name = {self.name}, user_id = {self.user_id})"
+    return f"--------\n{self.user_id}: {self.name}"
   
   def __eq__(self, other):
     if not isinstance(other, User):

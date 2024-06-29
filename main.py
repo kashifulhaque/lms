@@ -130,12 +130,18 @@ def main():
         for user in results:
           print(user)
 
+      # Checkout a book
       elif choice == '14':
         user_id = input("Enter user ID: ")
         isbn = input("Enter ISBN of the book to checkout: ")
-        checkout_service.checkout_book(user_id, isbn)
-        log_info("Book checked out.")
+        is_checkout = checkout_service.checkout_book(user_id, isbn)
 
+        if is_checkout:
+          log_info("Book checked out.")
+        else:
+          log_error(f"Book ISBN: {isbn} is currently owned by User: {user_id}")
+
+      # Checkin a book
       elif choice == '15':
         user_id = input("Enter user ID: ")
         isbn = input("Enter ISBN of the book to checkin: ")
