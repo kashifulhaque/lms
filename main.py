@@ -25,6 +25,7 @@ def main_menu():
   print("13. Search User by name")
   print("14. Checkout Book")
   print("15. Checkin Book")
+  print("16. Check book availability")
   print("Press any key to exit (except the options)")
 
   choice = input("Enter choice: ")
@@ -147,6 +148,15 @@ def main():
         isbn = input("Enter ISBN of the book to checkin: ")
         checkout_service.checkin_book(user_id, isbn)
         log_info("Book checked in.")
+
+      elif choice == '16':
+        isbn = input("Enter ISBN: ")
+        is_available = checkout_service.check_book_availability(isbn)
+
+        if is_available:
+          log_info(f"Available")
+        else:
+          log_error(f"Not available")
 
       else:
         print("Exiting.")

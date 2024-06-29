@@ -39,3 +39,10 @@ class CheckoutService:
     self.checkouts = results
     self.storage.save(self.checkouts)
     self.__init__()
+
+  def check_book_availability(self, isbn):
+    for checkout in self.checkouts:
+      if checkout.isbn == isbn:
+        return False
+    
+    return True
